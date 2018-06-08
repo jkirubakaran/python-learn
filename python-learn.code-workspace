@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
+		"editor.fontSize": 14,
 		"python.venvPath": "${workspaceFolder}/.env",
 		"python.pythonPath": "${workspaceFolder}/.env/bin/python"
     
