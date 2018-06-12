@@ -31,17 +31,16 @@ def is_unique(str):
     logger.info('Finished searching string')
     return True
 
-def is_unique_same_data_structure(str):
+def is_unique_same_data_structure(str):  
+    is_unique = True
+    for i in range(0, len(str)):
+        for x in range(i + 1, len(str)):
+            logger.info('{} == {} {}'.format(str[i], str[x], str[i].lower() == str[x].lower()))
+            if(str[i].lower() == str[x].lower()):
+                is_unique = False
+                break
     
-    for i in range(len(str)):
-        for char in str[i:]:
-            if char is str[i]:
-                logger.info('found a match for {}'.format(char))
-                return False
-            
-    
-    logger.info('Finished searching string')
-    return True
+    return is_unique
 
 
 @pytest.mark.parametrize('test_input, expected', [
@@ -55,5 +54,5 @@ def is_unique_same_data_structure(str):
 def test_strings(test_input, expected):
     assert is_unique_same_data_structure(test_input) is expected
 
-is_unique_same_data_structure('moo')
 
+print(is_unique_same_data_structure('moo'))
