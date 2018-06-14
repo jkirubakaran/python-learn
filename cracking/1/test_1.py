@@ -6,6 +6,11 @@ Assumptions :
 - empty string should be True
 - data structure above is a array of characters , so a list in python
 - case insensitive 
+
+missed : 
+- bit array - not avail by default in Python. Need to use lib to support it or create manually
+- sort in-place and then read for consecutive 
+
 '''
 
 import logging
