@@ -16,14 +16,21 @@ Assumptions:
 
 import logging
 import pytest
-import urllib
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
-def urlify(str):
-    return urllib.parse.quote(str)
+def _shift_right_and_fill(index, str):
+    
+
+def urlify(str, length):
+    while(str.find(' ') != -1):
+        index = str.find(' ')
+        str = _shift_right_and_fill(index, )
+        logger.info('str is {}'.format(str)) 
+
+
 
 
 @pytest.mark.parametrize('string_1, expected, length',[
@@ -33,4 +40,4 @@ def urlify(str):
     ('  ', '%20%20', 6)
 ])
 def test_strings(string_1, expected, length):
-    assert urlify(string_1) == expected
+    assert urlify(string_1, length) == expected
