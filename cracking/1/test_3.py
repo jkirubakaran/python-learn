@@ -21,14 +21,17 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
-def _shift_right_and_fill(index, str):
-    
+def _shift_right_and_fill(str):
+    return '%20' + str[1:-2]
+
 
 def urlify(str, length):
     while(str.find(' ') != -1):
         index = str.find(' ')
-        str = _shift_right_and_fill(index, )
-        logger.info('str is {}'.format(str)) 
+        str = str[:index] + _shift_right_and_fill(str[index:])
+        logger.info('str is {}'.format(str))
+
+    return str 
 
 
 
@@ -41,3 +44,5 @@ def urlify(str, length):
 ])
 def test_strings(string_1, expected, length):
     assert urlify(string_1, length) == expected
+
+urlify('cod ing  ', 9)
