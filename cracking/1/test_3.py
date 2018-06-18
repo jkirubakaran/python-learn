@@ -21,28 +21,32 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
-def _shift_right_and_fill(str):
-    return '%20' + str[1:-2]
-
 
 def urlify(str, length):
     while(str.find(' ') != -1):
         index = str.find(' ')
-        str = str[:index] + _shift_right_and_fill(str[index:])
+        str = str[:index] + '%20' + str[index + 1: -2 ]
         logger.info('str is {}'.format(str))
 
     return str 
 
-
-
+def urlify_2(str, length):
+    str = list(str)
+    while(str.index(' ') != -1):
+       index = str.index(' ')
+       str[index] = '%'
+       str.insert(index + 1, '2')
+       str.insert(index + 2, '0')
+       str.pop()
+       str.pop()
+        
+    return ''.join(str)
 
 @pytest.mark.parametrize('string_1, expected, length',[
     ('cod ing  ','cod%20ing', 9),
     ('', '', 0),
     (' moo     ', '%20moo%20', 9),
-    ('  ', '%20%20', 6)
+    ('      ', '%20%20', 6)
 ])
 def test_strings(string_1, expected, length):
-    assert urlify(string_1, length) == expected
-
-urlify('cod ing  ', 9)
+    assert urlify_2(string_1, length) == expected
