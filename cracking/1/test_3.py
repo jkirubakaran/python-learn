@@ -12,6 +12,7 @@ Assumptions:
 - only white space or characters and not other chars?
 - Ascii only 
 - python strings are immutable 
+- url rev 1 below uses slicing which makes a copy. rev 2 tries to do everything in-place
 '''
 
 import logging
@@ -32,14 +33,19 @@ def urlify(str, length):
 
 def urlify_2(str, length):
     str = list(str)
-    while(str.index(' ') != -1):
-       index = str.index(' ')
-       str[index] = '%'
-       str.insert(index + 1, '2')
-       str.insert(index + 2, '0')
-       str.pop()
-       str.pop()
-        
+    done_with_list = False
+    while done_with_list is not True:
+        try:
+            logger.info('str is {}'.format(str))
+            index = str.index(' ')
+            str[index] = '%'
+            str.insert(index + 1, '2')
+            str.insert(index + 2, '0')
+            str.pop()
+            str.pop()
+        except ValueError:
+            done_with_list = True
+    
     return ''.join(str)
 
 @pytest.mark.parametrize('string_1, expected, length',[
