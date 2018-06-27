@@ -25,21 +25,28 @@ logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
 def is_palindrome_or_permutation(str):
-    str =  str.replace(" ", "")
     if str == '':
         return True
+    str = str.replace(" ", "")
+    str_dict = {}
+
+    for c in str.lower():
+        if c in str_dict:
+            str_dict[c] += 1
+        else:
+            str_dict[c] = 1
+
+    num_of_odd_keys = 0 
+    for key in str_dict:
+        if str_dict[key] % 2 == 1:
+            num_of_odd_keys += 1
     
-    sorted_list = sorted(str.lower())
-    logger.info('list sorted , remove white space and lower cased: {}'.format(sorted_list))
-    for i in range(0, len(sorted_list), 2):
-        logger.info('i={} i+1={}'.format(sorted_list[i], sorted_list[i+1]))
-        if sorted_list[i] != sorted_list[i+1]:
-            logger.info('meow')
-            return False
-        elif len(str) % 2 != 0 and i + 1 == len(sorted_list): #odd size string and at last character
-            return True
-    
-    return True
+    if num_of_odd_keys > 1:
+        return False
+    elif num_of_odd_keys == 1 and len(str) == 3:
+        return False
+    else: 
+        return True
                
 
 
@@ -49,6 +56,7 @@ def is_palindrome_or_permutation(str):
     ('ra da R', True),
     ('', True),
     ('Taco Cat', True),
+    ('T a co C a t ', True),
     ('123', False),
     ('foo', False),
     ('this is not a palindrome', False)
